@@ -24,7 +24,7 @@ export class TodoService {
 
     async create(data: Partial<Todo>): Promise<Todo>{
         const todo = new this.todoModel(data)
-        return todo.save();;
+        return todo.save();
     }
 
     async update(id: string, data: Partial<Todo>){
