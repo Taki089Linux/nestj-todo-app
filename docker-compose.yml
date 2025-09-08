@@ -1,12 +1,22 @@
 services:
-  app:
-    build: .
-    container_name: nest-todo-app
-    restart: always
-    env_file:
-      - .env
+  backend:
+    build: ./backend
     ports:
       - '3000:3000'
     volumes:
-      - .:/TODO-APP
+      - ./backend:/app
+      - /app/node_modules
     command: yarn start:dev
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: yarn dev
+    restart: unless-stopped
+    depends_on:
+      - backend

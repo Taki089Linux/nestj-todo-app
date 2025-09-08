@@ -2,7 +2,7 @@
 FROM node:20-alpine
 
 # Set working directory
-WORKDIR /TODO-APP
+WORKDIR /app
 
 # Copy package.json and yarn.lock before installing dependencies
 COPY package.json yarn.lock ./
