@@ -1,0 +1,19 @@
+name: A workflow for my my Hello World file
+on:
+  push:
+  pull_request:
+  workflow_dispatch: 
+jobs:
+  build:
+    name: hello action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run lint test
+        run: echo "Hello, GitHub Actions! I'm learning CI/CD"
+
+      - name: print Github Context
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref }}"
+          echo "Event: ${{github.event_name}}"
