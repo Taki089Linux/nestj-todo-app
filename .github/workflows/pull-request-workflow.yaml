@@ -18,8 +18,14 @@ jobs:
           echo "Branch: ${{ github.ref }}"
           echo "Event: ${{github.event_name}}"
 
+  eslintCheck:
+    name: I use eslint to check format
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo " i run npm run lint"
+
   CleanCode:
-    needs: [build]
+    needs: [build, eslintCheck]
     name: Lint Code
     runs-on: ubuntu-latest
     steps:
