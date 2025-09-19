@@ -2,7 +2,7 @@ name: A workflow for my my Hello World file
 on:
   push:
   pull_request:
-  workflow_dispatch: 
+  workflow_dispatch:
 jobs:
   build:
     name: hello action
@@ -17,3 +17,11 @@ jobs:
           echo "Repository: ${{ github.repository }}"
           echo "Branch: ${{ github.ref }}"
           echo "Event: ${{github.event_name}}"
+
+  CleanCode:
+    needs: [build]
+    name: Lint Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: script npm
+        run: echo "E lint code"
