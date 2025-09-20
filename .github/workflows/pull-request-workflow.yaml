@@ -1,8 +1,6 @@
 name: A workflow for my my Hello World file
 on:
-  push:
   pull_request:
-  workflow_dispatch:
 jobs:
   build:
     name: hello action
