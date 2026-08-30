@@ -1,31 +1,25 @@
 name: A workflow for my my Hello World file
 on:
   pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - workflow-action
+
 jobs:
   build:
-    name: hello action
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run lint test
-        run: echo "Hello, GitHub Actions! I'm learning CI/CD"
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
 
-      - name: print Github Context
-        run: |
-          echo "Repository: ${{ github.repository }}"
-          echo "Branch: ${{ github.ref }}"
-          echo "Event: ${{github.event_name}}"
-
-  eslintCheck:
-    name: I use eslint to check format
-    runs-on: ubuntu-latest
     steps:
-      - run: echo " i run npm run lint"
-
-  CleanCode:
-    needs: [build, eslintCheck]
-    name: Lint Code
-    runs-on: ubuntu-latest
-    steps:
-      - name: script npm
-        run: echo "E lint code"
+      - uses: actions/checkout@v5
+      - name: Use NodeJs ${{ matrix.node-version }}
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm ci
+      - run: npm test
